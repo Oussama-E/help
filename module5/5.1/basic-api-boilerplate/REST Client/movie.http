@@ -1,0 +1,49 @@
+### Read all movies with File variable
+@baseUrl = http://localhost:3000
+GET {{baseUrl}}/movies
+
+### Read movie with this id 
+GET {{baseUrl}}/movies/4
+
+### Read all movies sorted by title (ascending)
+GET {{baseUrl}}/movies/?order=+title
+
+### Read all movies sorted by title (descending)
+GET {{baseUrl}}/movies/?order=-title
+
+### Read all movies sorted by minimum-duration (ascending)
+GET {{baseUrl}}/movies/?minimum-duration=150
+
+### Read all movies sorted by budget (ascending)
+GET {{baseUrl}}/movies/?budget=300
+
+
+### Create a movie
+POST {{baseUrl}}/movies
+Content-Type: application/json
+
+{
+    "title":"FilmEnAnglais",
+    "duration": 165,
+    "budget": 800,
+    "link":"https://google.com"
+}
+
+### Create a bad movie
+POST {{baseUrl}}/movies
+Content-Type: application/json
+
+{
+    "title":"Magic Green"
+}
+
+### Delete a movie 
+DELETE {{baseUrl}}/movies/5
+
+### Update the movie with id 1
+PATCH {{baseUrl}}/movies/4
+Content-Type: application/json
+
+{
+    "link":"https://google.be"
+}

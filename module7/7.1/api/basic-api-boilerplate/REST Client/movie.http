@@ -1,0 +1,66 @@
+### Read all movies with File variable
+@baseUrl = http://localhost:3000
+GET {{baseUrl}}/movies
+
+### Read movie with this id 
+GET {{baseUrl}}/movies/4
+
+### Read all movies sorted by title (ascending)
+GET {{baseUrl}}/movies/?order=+title
+
+### Read all movies sorted by title (descending)
+GET {{baseUrl}}/movies/?order=-title
+
+### Read all movies sorted by minimum-duration (ascending)
+GET {{baseUrl}}/movies/?minimum-duration=150
+
+### Read all movies sorted by budget (ascending)
+GET {{baseUrl}}/movies/?budget=300
+
+#### First login as the admin
+##### Define a request variable nammed admin :
+# @name admin
+POST {{baseUrl}}/auths/login
+Content-Type: application/json
+
+{
+    "username":"admin",
+    "password":"admin"
+}
+
+##### 2.1.2 Define a file variable to simplify the access to the token of manager
+@adminToken = {{admin.response.body.token}}
+
+### Create a movie
+POST {{baseUrl}}/movies
+Content-Type: application/json
+Authorization: {{adminToken}}
+
+{
+    "title":"FilmEnAnglais",
+    "duration": 165,
+    "budget": 800,
+    "link":"https://google.com"
+}
+
+### Create a bad movie
+POST {{baseUrl}}/movies
+Content-Type: application/json
+Authorization: {{adminToken}}
+
+{
+    "title":"Magic Green"
+}
+
+### Delete a movie 
+DELETE {{baseUrl}}/movies/7
+Authorization: {{adminToken}}
+
+### Update the movie with id 1
+PATCH {{baseUrl}}/movies/7
+Content-Type: application/json
+Authorization: {{adminToken}}
+
+{
+    "link":"https://google.be"
+}
